@@ -8,4 +8,4 @@ The mobile component of the application retrieves requested json files through t
 
 See also the server side component of the application: [UTHPortal server](https://github.com/VolosHack/UTHPortal-server)
 
-A project of [VolosHack](http://voloshack.tk/), the University of Thessaly hackers group.
+A project of [VolosHack](http://voloshack.tk/), the University of Thessaly hacker group.
