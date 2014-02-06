@@ -5,12 +5,14 @@
     android:background="#fa6a6a"
     android:orientation="vertical" >
 
-    <ExpandableListView
-        android:id="@+id/department_list"
+    <Button
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-    </ExpandableListView>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="162dp"
+        android:text="Button"
+        android:onClick="onBtnClicked" />
 
 </RelativeLayout>

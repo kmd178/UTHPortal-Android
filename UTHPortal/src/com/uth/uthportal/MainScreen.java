@@ -1,7 +1,11 @@
 package com.uth.uthportal;
 
-import com.uth.uthportal.adapter.TabsPagerAdapter;
+import java.util.concurrent.ExecutionException;
 
+import com.uth.uthportal.adapter.TabsPagerAdapter;
+import com.uth.uthportal.network.JSONProvider;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -9,6 +13,8 @@ import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Toast;
 
 public class MainScreen extends FragmentActivity implements android.app.ActionBar.TabListener{
 	//tab stuff.
@@ -75,6 +81,18 @@ public class MainScreen extends FragmentActivity implements android.app.ActionBa
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
 		
+	}
+	public void onBtnClicked(View v){
+		AsyncTask<String, String, String> a =new JSONProvider().execute("http://echo.jsontest.com/testjson/ITSWORKINNNN/testval/val1");
+		try {
+			Toast.makeText(this, a.get(), Toast.LENGTH_LONG).show();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 
