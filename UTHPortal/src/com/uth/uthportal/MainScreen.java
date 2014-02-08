@@ -1,9 +1,15 @@
 package com.uth.uthportal;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import com.uth.uthportal.adapter.ExpandableListAdapter;
 import com.uth.uthportal.adapter.TabsPagerAdapter;
+import com.uth.uthportal.collections.Course;
 import com.uth.uthportal.network.JSONProvider;
+import com.uth.uthportal.parser.JSONParser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +20,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 public class MainScreen extends FragmentActivity implements android.app.ActionBar.TabListener{
@@ -82,10 +89,28 @@ public class MainScreen extends FragmentActivity implements android.app.ActionBa
 		// TODO Auto-generated method stub
 		
 	}
+	//just for testing
 	public void onBtnClicked(View v){
-		AsyncTask<String, String, String> a =new JSONProvider().execute("http://echo.jsontest.com/testjson/ITSWORKINNNN/testval/val1");
+		AsyncTask<String, String, String> a =new JSONProvider().execute("http://192.168.1.4:8000/test");
+		Course c;
 		try {
-			Toast.makeText(this, a.get(), Toast.LENGTH_LONG).show();
+			//
+			JSONParser jParser = new JSONParser(a.get());
+			 c = jParser.parseCourse();
+			//Toast.makeText(this, c.name +"\n"+ c.announcements.get(0).content, Toast.LENGTH_LONG).show();
+			 ExpandableListView expListView = (ExpandableListView) findViewById(R.id.coursesList);
+			 List<String> listParent = new ArrayList<String>();
+			 HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
+			 listParent.add(c.name); //add class as parent
+			 for(int i=0;i<listParent.size();i++){
+				 List<String> contents = new ArrayList<String>();
+				 for(int j=0;j<c.announcements.size();j++){
+					contents.add(c.announcements.get(j).content); //add the content of each announcement to the list
+			 	}
+				listDataChild.put(listParent.get(i),contents); //map the contents of announcements to i parent
+			 }
+			 ExpandableListAdapter lAdapter = new ExpandableListAdapter(this, listParent,listDataChild);
+			 expListView.setAdapter(lAdapter);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -93,6 +118,10 @@ public class MainScreen extends FragmentActivity implements android.app.ActionBa
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		 
+	
+	
 	}
 	
 

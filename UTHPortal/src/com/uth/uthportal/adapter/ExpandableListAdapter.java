@@ -7,6 +7,7 @@ import com.uth.uthportal.R;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		TextView textListChild = (TextView) convertView
 				.findViewById(R.id.labelListChild);
 		
-		textListChild.setText(childText);
+		textListChild.setText(Html.fromHtml(childText));
 		return convertView;
 	}
 
